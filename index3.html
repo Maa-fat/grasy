@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>学習メモ</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="manifest" href="manifest.json">
+
+
+
+<style>
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin:0;
+  padding:80px 10px 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background:#f2f2f7;
+  text-align:center;
+}
+
+
+.smallDelete {
+  width:32px;
+  height:32px;
+  padding:0;
+  font-size:12px;
+  border-radius:50%;
+}
+
+/* 上バー */
+.toolbar {
+  position: sticky;
+  top:0;
+  background:white;
+  padding:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+
+
+  display:flex;       /*  横並びにする */
+  justify-content:center; /* 中央寄せ */
+  gap:10px;           /*  ボタン間隔 */
+
+  z-index:1000;       /*  前面に出す */
+
+}
+
+/* 上のアイコンボタンだけ */
+.toolbar button {
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* アイコンサイズ */
+.toolbar button i {
+  font-size:18px;
+}
+
+/* ボタン */
+button {
+  position: relative;
+  overflow: hidden;
+  margin:5px;
+  padding:10px 14px;
+  border:none;
+  border-radius:20px;
+  background:#007aff;
+  color:white;
+  font-size:14px;
+  transition:0.2s;
+
+}
+
+
+
+/* ダークモード */
+.dark button {
+  background:#0a84ff;
+}
+
+
+button:hover {
+  background:#0062cc;
+}
+
+button:active {
+  transform: scale(0.92);
+}
+
+button::after {
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:0;
+  height:0;
+  background: rgba(255,255,255,0.4);
+  border-radius:50%;
+  transform: translate(-50%, -50%);
+  transition:0.3s;
+}
+
+button:active::after {
+  width:200%;
+  height:200%;
+}
+
+input[type="color"] {
+  width:50px;
+  height:50px;
+  border:none;
+  border-radius:10px;
+  padding:0;
+  cursor:pointer;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border:none;
+  border-radius:10px;
+}
+
+
+/* 入力 */
+input, textarea {
+  width:80%;
+  padding:10px;
+  border-radius:12px;
+  border:1px solid #ccc;
+}
+
+input[type="color"] {
+  width:50px;
+  height:50px;
+  border:none;
+  border-radius:10px;
+  padding:0;
+}
+
+/* カード */
+.card {
+  background:white;
+  margin:12px auto;
+  padding:15px;
+  border-radius:20px;
+  width:100%;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card span {
+  cursor:pointer;
+}
+
+
+#settingsList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+#settingsList div {
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.dark #settingsList div {
+  background: #2c2c2e;
+}
+
+
+/* スマホ */
+@media (max-width:600px){
+
+
+html, body {
+  width:100%;
+  overflow-x:hidden;
+}
+
+
+  html {
+    font-size: 16px;  /* ←全体拡大 */
+  }
+
+
+  body {
+    font-size:18px;
+    padding-top:90px;
+    line-height: 1.6;
+    transform-origin: top center;
+  }
+
+  h2 {
+    font-size:30px;
+  }
+
+  /* ✅ ここが超重要🔥 */
+  input, textarea {
+    width:90%;
+
+    font-size:20px !important;
+    padding:14px;
+  }
+
+  /* ✅ ボタンもさらに強く */
+  button {
+    font-size:20px !important;
+    padding:14px 18px;
+    border-radius:24px;
+
+  }
+
+  /* ✅ カードの文字も強制 */
+  .card {
+    font-size:20px !important;
+    margin:18px auto;
+  }
+
+
+  .card span {
+    font-size:22px !important;
+  }
+
+
+
+  /* ===== toolbar全体 ===== */
+  .toolbar {
+    padding:12px;
+    gap:14px; /* ボタン間広げる */
+  }
+
+  /* ===== toolbarボタン ===== */
+  .toolbar button {
+    width:60px;
+    height:60px;
+  }
+
+  .toolbar button i {
+    font-size:22px;
+  }
+
+
+  canvas {
+ 
+   width:100%;
+   max-width:350px;
+   height:150px;
+
+  }
+
+
+}  
+
+/* PC */
+@media (min-width:900px){
+  .card {
+    max-width:500px;
+  }
+}
+
+.android button {
+  background:#4caf50;
+}
+
+.pc button {
+  background:#2196f3;
+}
+
+/* 🌙 ダークモード */
+.dark {
+  background:#1c1c1e;
+  color:white;
+}
+
+.dark .toolbar {
+  background:#2c2c2e;
+}
+
+.dark .card {
+  background:#2c2c2e;
+  color:white;
+  box-shadow: none;
+}
+
+.dark input, 
+.dark textarea {
+  background:#1c1c1e;
+  color:white;
+  border:1px solid #555;
+}
+
+.dark button {
+  background:#0a84ff;
+}
+
+.colorPreview {
+  display:inline-block;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  margin:0 8px;
+  border:1px solid #ccc;
+  vertical-align:middle;
+}
+
+.dark .colorPreview {
+  border:1px solid #666;
+}
+
+.settingsTopButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2><i class="fa-solid fa-book"></i> 学習メモ</h2>
+<div class="toolbar">
+  <button onclick="showFiles()">
+  <i class="fa-solid fa-folder"></i>
+</button>
+
+<button onclick="newMemo()">
+  <i class="fa-solid fa-pen"></i>
+</button>
+
+<button onclick="showSettings()">
+  <i class="fa-solid fa-gear"></i>
+</button>
+
+<button onclick="showHelp()">
+  <i class="fa-solid fa-circle-info"></i>
+</button>
+
+<button onclick="toggleDark()">
+  <i class="fa-solid fa-moon"></i>
+</button>
+</div>
+
+<div id="settingsPage" style="display:none">
+
+
+<div class="settingsTopButtons">
+  <button onclick="showFiles()">←戻る</button>
+  <button onclick="saveSettings()">保存</button>
+</div>
+
+  <h3>文字色設定</h3>
+
+  <input id="addChar" placeholder="追加する文字">
+  <button onclick="addChar()">追加</button>
+
+  <div id="settingsList"></div>
+
+  <button onclick="saveSettings()">保存</button>
+
+
+</div>
+
+<!-- ファイル -->
+<div id="filePage">
+  <input id="fileInput" placeholder="ファイル名">
+  <button onclick="addFile()">追加</button>
+  <div id="fileList"></div>
+</div>
+
+<!-- 単語 -->
+<div id="memoPage" style="display:none">
+
+  <input id="word" placeholder="単語"><br>
+  <textarea id="detail" placeholder="意味"></textarea><br>
+
+<textarea id="memo" placeholder="メモ"></textarea><br>
+
+
+<label>文字の色を選択（任意）</label><br>
+<input type="color" id="color"><br>
+
+<label>ペン色</label><br>
+<input type="color" id="penColor" value="#000000"><br>
+<button onclick="showQuizMenu()">
+  <i class="fa-solid fa-graduation-cap"></i>
+  クイズを開始
+</button>
+
+
+<label>太さ :
+  <span id="penSizeValue">3</span>px
+</label><br>
+
+<input
+  type="range"
+  id="penSize"
+  min="1"
+  max="30"
+  value="3"
+><br>
+
+<label>消しゴム太さ :
+  <span id="eraserSizeValue">10</span>px
+</label><br>
+
+<input
+  type="range"
+  id="eraserSize"
+  min="1"
+  max="50"
+  value="10"
+><br>
+
+<canvas id="canvas" style="border:1px solid;"></canvas><br>
+<button id="penBtn" onclick="penMode()">
+  <i class="fa-solid fa-pen"></i>
+</button>
+
+<button id="eraserBtn" onclick="eraserMode()">
+  <i class="fa-solid fa-eraser"></i>
+</button>
+
+  <button onclick="clearCanvas()">
+  <i class="fa-solid fa-trash"></i>
+</button>
+
+<button onclick="saveWord()">
+  <i class="fa-solid fa-floppy-disk"></i>
+</button>
+
+<button onclick="resetForm()">
+  <i class="fa-solid fa-file-circle-plus"></i>
+</button>
+
+  <div id="list"></div>
+</div>
+
+
+<div id="helpPage" style="display:none">
+
+  <button onclick="showFiles()">←戻る</button>
+
+  <h3><i class="fa-solid fa-circle-info"></i> 使い方・機能一覧</h3>
+
+  <div style="text-align:left; padding:10px; max-width:400px; margin:auto;">
+
+    <b>■<i class="fa-solid fa-folder"></i>ファイル</b><br>
+    ・ファイルを作ると単語帳になります<br>
+    ・クリックでファイルの情報に入ります<br><br>
+
+    <b>■<i class="fa-solid fa-pen"></i> 単語登録</b><br>
+    ・単語と意味を書いて保存<br>
+    ・このページで色を選ぶと手動で単語のカラーを設定できます<br><br>
+
+    <b>■<i class="fa-solid fa-graduation-cap"></i> クイズ機能</b><br>
+・登録した単語をクイズ形式で学習できます<br>
+・意味→単語、単語→意味を選べます<br>
+・ランダムを選ぶと「意味→単語」「単語→意味」が自動で切り替わります<br>
+・間違えた問題だけを復習できます<br><br>
+
+<b>■<i class="fa-solid fa-image"></i> 手書き画像</b><br>
+・キャンバスに図やイラストを書けます<br>
+・保存すると単語と一緒に登録されます<br>
+・<i class="fa-solid fa-pen"></i>で描画、<i class="fa-solid fa-eraser"></i>で消去できます<br><br>
+
+ <b>■<i class="fa-solid fa-gear"></i> 文字色設定</b><br>
+・文字ごとに色を設定できます<br>
+・設定した色は単語表示に反映されます<br>
+・色を変更すると自動保存されます<br>
+・保存ボタンでもまとめて保存できます<br><br>
+
+<b>■<i class="fa-solid fa-plus"></i> カスタム文字追加</b><br>
+・カタカナ、漢字、記号などを追加できます<br>
+・追加した文字にも色設定ができます<br>
+・自分専用の色ルールを作れます<br><br> 
+
+
+    <b>■<i class="fa-solid fa-palette"></i> 文字色一覧（グリッド表示）</b><br>
+    ・文字色設定は複数列で表示されます<br>
+    ・一覧からすばやく色を変更できます<br><br>
+
+    <b>■<i class="fa-solid fa-pen-to-square"></i> 編集</b><br>
+    ・<i class="fa-solid fa-pen-to-square"></i>ボタンで編集できます<br>
+    ・<i class="fa-solid fa-trash"></i>で削除できます<br><br>
+
+    <b>■<i class="fa-solid fa-right-left"></i> 単語の移動</b><br>
+    ・単語カードの <i class="fa-solid fa-right-left"></i> ボタンで別のファイルに移動できます<br>
+    ・移動先の番号を選ぶことでファイル間の整理ができます<br><br>
+
+    <b>■<i class="fa-solid fa-arrow-up"></i> 並び替え（上下ボタン）</b><br>
+    ・⬆ボタンで上に移動します<br>
+    ・⬇ボタンで下に移動します<br>
+    ・簡単に順番を入れ替えたい時に便利です<br><br>
+
+    <b>■<i class="fa-solid fa-hand-pointer"></i> ドラッグで並び替え</b><br>
+    ・カードを長押し（またはクリックしたまま）して動かすと並び替えできます<br>
+    ・好きな位置に移動して整理できます<br><br>
+
+
+    <b>■<i class="fa-solid fa-expand"></i> 詳細表示</b><br>
+    ・カードを押すと大きく表示されます<br>
+    ・◀▶で前後の単語に切り替えができます<br><br>
+
+
+    <b>■<i class="fa-solid fa-moon"></i>ダークモード</b><br>
+    ・<i class="fa-solid fa-moon"></i>ボタンでダークモードと切り替えができます<br>
+
+
+  </div>
+</div>
+
+
+<div id="quizMenu" style="display:none">
+
+<h2>
+  <i class="fa-solid fa-list-check"></i>
+  クイズ形式を選択
+</h2>
+
+  <button onclick="startQuizMode(0)">
+  <i class="fa-solid fa-language"></i>
+  意味 → 単語
+</button>
+
+  <button onclick="startQuizMode(1)">
+  <i class="fa-solid fa-book-open"></i>
+  単語 → 意味
+</button>
+
+  <button onclick="startQuizMode(4)">
+  <i class="fa-solid fa-shuffle"></i>
+  ランダム
+</button>
+<br>
+
+<button onclick="showMemo()">
+  ← 戻る
+</button>
+
+</div>
+
+<div id="quizPage" style="display:none">
+
+ <h2>
+  <i class="fa-solid fa-graduation-cap"></i>
+  クイズ
+</h2>
+
+  <div id="quizQuestion"></div>
+
+  <input
+    id="quizAnswer"
+    placeholder="答えを入力"
+  >
+
+  <br>
+
+  <button onclick="checkQuiz()">
+    回答
+  </button>
+
+  <button onclick="showMemo();quizPage.style.display='none';">
+    終了
+  </button>
+
+  <div id="quizResult"></div>
+
+</div>
+
+
+
+<script>
+
+let ua = navigator.userAgent;
+
+if(ua.includes("Android")){
+  document.body.classList.add("android");
+}else if(ua.includes("iPhone")){
+  document.body.classList.add("iphone");
+}else{
+  document.body.classList.add("pc");
+}
+
+let dragIndex = null;
+let touchItem = null;
+let colorTouched = false;
+let canvas, ctx;
+let drawing = false;
+let editIndex = null;
+let currentIndex = 0;
+let currentMemos = [];
+
+let currentTool = "pen";
+let penWidth = 3;
+let eraserWidth = 10;
+let quizIndex = 0;
+let quizData = [];
+let currentAnswer = "";
+
+let quizMode = 4;
+
+let wrongList = [];
+
+
+function showQuizMenu(){
+
+
+  filePage.style.display = "none";
+  memoPage.style.display = "none";
+  helpPage.style.display = "none";
+  settingsPage.style.display = "none";
+
+  quizMenu.style.display = "block";
+}
+
+
+function startQuizMode(mode){
+
+  quizMode = mode;
+
+  quizMenu.style.display = "none";
+
+  startQuiz();
+}
+
+
+function startQuiz(){
+
+  wrongList = [];
+
+  // 今までの処理
+ 
+
+  let i = localStorage.getItem("current");
+
+  let files =
+    JSON.parse(localStorage.getItem("files") || "[]");
+
+  if(!files[i] || files[i].memos.length === 0){
+    alert("単語がありません");
+    return;
+  }
+
+  quizData = [...files[i].memos];
+
+  quizData.sort(() => Math.random() - 0.5);
+
+  quizIndex = 0;
+
+  filePage.style.display = "none";
+  memoPage.style.display = "none";
+  helpPage.style.display = "none";
+  settingsPage.style.display = "none";
+
+  quizPage.style.display = "block";
+
+  showQuiz();
+}
+
+
+function showQuiz(){
+
+  let q = quizData[quizIndex];
+
+
+  let type;
+if(quizMode === 4){
+  type = Math.floor(Math.random() * 2);
+}else{
+  type = quizMode;
+}
+
+ 
+
+  switch(type){
+
+    // 意味→単語
+    case 0:
+
+      currentAnswer = q.word;
+
+      quizQuestion.innerHTML = `
+        <h3>意味から単語を答えてね</h3>
+        <h2>${q.detail}</h2>
+      `;
+
+      break;
+
+    // 単語→意味
+    case 1:
+
+      currentAnswer = q.detail;
+
+      quizQuestion.innerHTML = `
+        <h3>単語の意味を答えてね</h3>
+        <h2>${q.word}</h2>
+      `;
+
+      break;
+
+  }
+
+  quizAnswer.value = "";
+  quizResult.innerHTML = "";
+}
+
+
+
+function checkQuiz(){
+
+  let answer =
+    document.getElementById("quizAnswer")
+      .value.trim();
+
+  if(answer === currentAnswer){
+
+    quizResult.innerHTML =
+      "⭕ 正解";
+
+
+}else{
+
+  wrongList.push(quizData[quizIndex]);
+
+  quizResult.innerHTML =
+    `❌ 不正解<br>正解：${currentAnswer}`;
+}
+
+
+  setTimeout(() => {
+
+    quizIndex++;
+
+ if(quizIndex >= quizData.length){
+
+  if(wrongList.length > 0){
+
+    let retry = confirm(
+      `${wrongList.length}問間違えました。\n復習しますか？`
+    );
+
+    if(retry){
+
+      quizData = [...wrongList];
+
+      wrongList = [];
+
+      quizIndex = 0;
+
+      showQuiz();
+
+      return;
+    }
+  }
+
+  alert("全問終了！");
+
+  quizPage.style.display = "none";
+
+  showMemo();
+
+  return;
+} 
+
+    showQuiz();
+
+  },1500);
+}
+
+   
+
+
+
+
+function showSettings(){
+  filePage.style.display = "none";
+  memoPage.style.display = "none";
+  helpPage.style.display = "none";
+  settingsPage.style.display = "block";
+ 
+  generateSettings(); 
+
+}
+
+
+function generateSettings(){
+
+  let container = document.getElementById("settingsList");
+  container.innerHTML = "";
+
+  // ✅ 固定文字
+  let baseChars = [
+    ..."あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん",
+    ..."がぎぐげござじずぜぞだぢづでどばびぶべぼ",
+    ..."ぱぴぷぺぽ",
+    ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    ..."abcdefghijklmnopqrstuvwxyz",
+    ..."0123456789"
+  ];
+
+
+
+  // ✅ 追加文字
+  let customChars = JSON.parse(localStorage.getItem("customChars") || "[]");
+
+  // ✅ 合体
+  let chars = [...baseChars, ...customChars];
+
+  let settings = JSON.parse(localStorage.getItem("settings") || "{}");
+
+  chars.forEach(c => {
+
+    let div = document.createElement("div");
+
+    div.innerHTML = `
+      ${c} :
+      <span class="colorPreview" style="background:${settings[c] || "#000"}"></span>
+      <input type="color" value="${settings[c] || "#000000"}">
+    `;
+
+    let input = div.querySelector("input");
+    let preview = div.querySelector(".colorPreview");
+
+    input.oninput = () => {
+      preview.style.background = input.value;
+      saveSettingsAuto();
+    };
+
+    input.id = "color_" + c;
+
+    container.appendChild(div);
+  });
+}
+
+
+function showTutorial(){
+  document.getElementById("tutorial").style.display = "flex";
+}
+
+function closeTutorial(){
+  document.getElementById("tutorial").style.display = "none";
+  localStorage.setItem("tutorial", "seen");
+}
+
+
+function colorizeWord(word, customColor){
+
+  let settings = JSON.parse(localStorage.getItem("settings") || "{}");
+
+  let result = "";
+
+  for(let c of word){
+
+    //  基本色
+    let color = settings[c] || "#000";
+
+    //  手動色があれば優先
+    if(customColor){
+      color = customColor;
+    }
+
+    result += `<span style="color:${color}">${c}</span>`;
+  }
+
+  return result;
+}
+
+
+function getAverageColor(word, customColor){
+
+  let settings = JSON.parse(localStorage.getItem("settings") || "{}");
+
+  let totalR = 0;
+  let totalG = 0;
+  let totalB = 0;
+  let count = 0;
+
+  for(let c of word){
+
+    let color = customColor || settings[c] || "#000000";
+
+    let hex = color.substring(1);
+    let r = parseInt(hex.substr(0,2),16);
+    let g = parseInt(hex.substr(2,2),16);
+    let b = parseInt(hex.substr(4,2),16);
+
+    totalR += r;
+    totalG += g;
+    totalB += b;
+    count++;
+  }
+
+  let avgR = Math.floor(totalR / count);
+  let avgG = Math.floor(totalG / count);
+  let avgB = Math.floor(totalB / count);
+
+  return `rgb(${avgR}, ${avgG}, ${avgB})`;
+}
+
+function getSmartBackground(word, customColor){
+
+  if(!word){
+    return "#eee"; // ←安全色
+  }
+
+  let avgColor = getAverageColor(word, customColor);
+
+  if(!avgColor){
+    return "#eee";
+  }
+
+  let rgb = avgColor.match(/\d+/g);
+
+  if(!rgb){
+    return "#eee";
+  }
+
+  let r = parseInt(rgb[0]);
+  let g = parseInt(rgb[1]);
+  let b = parseInt(rgb[2]);
+
+  if(document.body.classList.contains("dark")){
+    r *= 0.3;
+    g *= 0.3;
+    b *= 0.3;
+  }else{
+    r = (r + 255) / 2;
+    g = (g + 255) / 2;
+    b = (b + 255) / 2;
+  }
+
+  return `rgb(${Math.floor(r)}, ${Math.floor(g)}, ${Math.floor(b)})`;
+}
+
+
+function addChar(){
+
+  let input = document.getElementById("addChar");
+  let value = input.value.trim();
+
+  if(!value){
+    alert("入力して");
+    return;
+  }
+
+  let customChars = JSON.parse(localStorage.getItem("customChars") || "[]");
+
+  // 重複防止
+  for(let c of value){
+    if(!customChars.includes(c)){
+      customChars.push(c);
+    }
+  }
+
+  localStorage.setItem("customChars", JSON.stringify(customChars));
+
+  input.value = "";
+
+  generateSettings(); // 再描画
+}
+
+
+function saveSettings(){
+
+  let settings = {};
+
+  let inputs = document.querySelectorAll("#settingsList input");
+
+  inputs.forEach(input => {
+    let key = input.id.replace("color_", "");
+    settings[key] = input.value;
+  });
+
+
+  localStorage.setItem("settings", JSON.stringify(settings));
+
+  generateSettings(); 
+
+
+ //  軽いフィードバック
+  let msg = document.createElement("div");
+  msg.textContent = "保存したよ！";
+  msg.style.position = "fixed";
+  msg.style.bottom = "20px";
+  msg.style.left = "50%";
+  msg.style.transform = "translateX(-50%)";
+  msg.style.background = "#333";
+  msg.style.color = "white";
+  msg.style.padding = "10px 20px";
+  msg.style.borderRadius = "10px";
+
+  document.body.appendChild(msg);
+
+  setTimeout(()=> msg.remove(), 1500);
+}
+
+function saveSettingsAuto(){
+
+  let settings = {};
+
+  let inputs = document.querySelectorAll("#settingsList input");
+
+  inputs.forEach(input => {
+    let key = input.id.replace("color_", "");
+    settings[key] = input.value;
+  });
+
+  localStorage.setItem("settings", JSON.stringify(settings));
+}
+
+function getAutoColor(word){
+
+  let settings = JSON.parse(localStorage.getItem("settings") || "{}");
+
+  if(!word) return "#000";
+
+  let first = word[0];
+
+ 
+  if(settings[first]){
+    return settings[first];
+  }
+
+  return "#000";
+}
+
+function toggleDark(){
+  document.body.classList.toggle("dark");
+
+  // 状態保存
+  if(document.body.classList.contains("dark")){
+    localStorage.setItem("darkMode", "on");
+  }else{
+    localStorage.setItem("darkMode", "off");
+  }
+  renderWords();
+}
+
+
+function openModal(m, index){
+
+  currentIndex = index;
+
+  let i = localStorage.getItem("current");
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+
+  currentMemos = files[i].memos;
+
+  showModalContent();
+}
+
+function showModalContent(){
+
+  let m = currentMemos[currentIndex];
+
+  document.getElementById("modal").style.display = "flex";
+
+  
+  document.getElementById("modalWord").innerHTML =
+  colorizeWord(m.word, m.color);
+
+  document.getElementById("modalDetail").textContent = m.detail;
+
+  let img = document.getElementById("modalImage");
+
+  if(m.image){
+    img.src = m.image;
+    img.style.display = "block";
+  }else{
+    img.style.display = "none";
+  }
+
+  document.getElementById("modalWord").innerHTML =
+  colorizeWord(m.word, m.color);
+
+  document.getElementById("modalMemo").textContent =
+  m.memo || "";
+}
+
+  
+
+function prevWord(){
+
+  currentIndex--;
+
+  if(currentIndex < 0){
+    currentIndex = currentMemos.length - 1;
+  }
+
+  showModalContent();
+}
+
+function nextWord(){
+
+  currentIndex++;
+
+  if(currentIndex >= currentMemos.length){
+    currentIndex = 0;
+  }
+
+  showModalContent();
+}
+
+function resetForm(){
+
+  word.value = "";
+  detail.value = "";
+  memo.value = "";
+
+  document.getElementById("color").value = "#000000";
+  colorTouched = false;
+
+  clearCanvas();
+
+  editIndex = null;
+}
+
+
+
+/* ===== 描画 ===== */
+function clearCanvas(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.beginPath();
+}
+
+function getPos(e){
+
+  const rect = canvas.getBoundingClientRect();
+
+  if(e.touches){
+    return {
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top
+    };
+  }
+
+  return {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
+  };
+}
+
+function startDraw(e){
+
+  drawing = true;
+
+  const pos = getPos(e);
+
+
+  if(currentTool === "pen"){
+    ctx.globalCompositeOperation = "source-over";
+  }else{
+    ctx.globalCompositeOperation = "destination-out";
+  }
+
+  ctx.beginPath();
+  ctx.moveTo(pos.x, pos.y);
+}
+
+
+
+function draw(e){
+
+  if(!drawing) return;
+
+  e.preventDefault();
+
+  const pos = getPos(e);
+
+  ctx.lineTo(pos.x, pos.y);
+  ctx.stroke();
+}
+
+
+
+function endDraw(){
+
+  drawing = false;
+}
+
+
+function penMode(){
+
+  currentTool = "pen";
+
+  ctx.globalCompositeOperation = "source-over";
+  ctx.strokeStyle = penColor.value;
+  ctx.lineWidth = penSize.value;
+  ctx.lineWidth = penWidth;
+
+  document.getElementById("penBtn").style.background =
+    "#ff9500";
+
+  document.getElementById("eraserBtn").style.background =
+    "";
+}
+
+
+
+
+const penSlider = document.getElementById("penSize");
+const penText = document.getElementById("penSizeValue");
+
+penSlider.addEventListener("input", e => {
+
+  penWidth = Number(e.target.value);
+
+  penText.textContent = penWidth;
+
+  if(currentTool === "pen"){
+    ctx.lineWidth = penWidth;
+  }
+
+});
+
+const eraserSlider =
+  document.getElementById("eraserSize");
+
+const eraserText =
+  document.getElementById("eraserSizeValue");
+
+eraserSlider.addEventListener("input", e => {
+
+  eraserWidth = Number(e.target.value);
+
+  eraserText.textContent = eraserWidth;
+
+  if(currentTool === "eraser"){
+    ctx.lineWidth = eraserWidth;
+  }
+
+});
+
+
+function eraserMode(){
+
+  currentTool = "eraser";
+
+  ctx.globalCompositeOperation = "destination-out";
+
+  ctx.lineWidth = eraserWidth;
+
+  document.getElementById("eraserBtn").style.background =
+    "#ff9500";
+
+  document.getElementById("penBtn").style.background =
+    "";
+}
+
+
+
+
+
+
+/* ===== ファイル ===== */
+function addFile(){
+
+  let name = fileInput.value;
+
+  if(!name){
+    alert("ファイル名入れて！");
+    return;
+  }
+
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+
+  files.push({name:name, memos:[]});
+
+  localStorage.setItem("files", JSON.stringify(files));
+
+  fileInput.value = ""; // ←バグ修正
+
+  renderFiles();
+}
+
+function renderFiles(){
+
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+  let list = document.getElementById("fileList");
+
+  list.innerHTML="";
+
+  files.forEach((f,i)=>{
+
+  let div = document.createElement("div");
+  div.className = "card";
+
+  let name = document.createElement("span");
+  name.innerHTML = '<i class="fa-solid fa-folder"></i> ' + f.name;
+
+  name.onclick = ()=>{
+    localStorage.setItem("current", i);
+    showMemo();
+  };
+
+  // 削除ボタン
+  let del = document.createElement("button");
+  del.innerHTML = '<i class="fa-solid fa-trash"></i>';
+  del.classList.add("smallDelete");
+
+  del.onclick = (e)=>{
+    e.stopPropagation();
+    files.splice(i,1);
+    localStorage.removeItem("current");
+    localStorage.setItem("files", JSON.stringify(files));
+    renderFiles();
+  };
+
+  div.appendChild(name);
+  div.appendChild(del);
+
+  list.appendChild(div);
+});
+}
+
+/* ===== ページ ===== */
+
+function showHelp(){
+
+  filePage.style.display = "none";
+  memoPage.style.display = "none";
+  settingsPage.style.display = "none";
+
+  quizMenu.style.display = "none";
+  quizPage.style.display = "none";
+
+  helpPage.style.display = "block";
+}
+
+
+
+function showFiles(){
+
+  renderFiles();
+
+  filePage.style.display="block";
+  memoPage.style.display="none";
+  settingsPage.style.display="none";
+  helpPage.style.display="none";
+}
+
+function showMemo(){
+
+  quizMenu.style.display = "none";
+
+  let i = localStorage.getItem("current");
+
+  if(i === null){
+    alert("ファイルを選択してください");
+    showFiles();
+    return;
+  }
+
+  filePage.style.display="none";
+  memoPage.style.display="block";
+  settingsPage.style.display="none";
+  helpPage.style.display="none";
+  quizPage.style.display="none";
+
+
+  renderWords();
+}
+
+
+/* ===== 保存 ===== */
+
+function saveWord(){
+
+  if(!word.value.trim()){
+    alert("単語を入力して");
+    return;
+  }
+
+  let i = localStorage.getItem("current");
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+
+  if(i === null){
+
+    let ok = confirm("ファイルがありません。新規作成しますか？");
+
+
+    if(!ok) return;
+
+    let name = "新規ファイル";
+
+    i = files.length;
+
+    files.push({
+      name: name,
+      memos: []
+    });
+
+    localStorage.setItem("files", JSON.stringify(files));
+    localStorage.setItem("current", i);
+  }
+
+  i = parseInt(i);
+
+  let image = null;
+
+  if(canvas){
+
+const blank = document.createElement("canvas");
+blank.width = canvas.width;
+blank.height = canvas.height;
+
+if(canvas.toDataURL() !== blank.toDataURL()){
+  image = canvas.toDataURL();
+
+
+
+
+
+}  }
+
+  let selectedColor = null;
+
+  if(colorTouched){
+    selectedColor = document.getElementById("color").value;
+  }
+
+  // ✅ここが超重要（編集と新規の分岐）
+  if(editIndex !== null){
+
+    // ✅編集（上書き）
+    files[i].memos[editIndex] = {
+      word: word.value,
+      detail: detail.value,
+      memo: memo.value,
+      image: image,
+      color: selectedColor
+    };
+
+    editIndex = null;
+
+  }else{
+
+    // ✅新規追加
+    files[i].memos.push({
+      word: word.value,
+      detail: detail.value,
+      memo: memo.value,
+      image: image,
+      color: selectedColor
+    });
+
+  }
+
+  localStorage.setItem("files", JSON.stringify(files));
+
+  // ✅入力リセット
+  memo.value = "";
+  word.value = "";
+  detail.value = "";
+  document.getElementById("color").value = "#000000";
+  colorTouched = false;
+
+  clearCanvas();
+
+  renderWords();
+}
+
+
+/* ===== 表示 ===== */
+
+function renderWords(){
+
+  let i = localStorage.getItem("current");
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+
+  if(i === null) return;
+
+  i = parseInt(i);
+
+  if(!files[i]) return;
+
+  let list = document.getElementById("list");
+  list.innerHTML = "";
+
+  let memos = files[i].memos || [];
+
+  memos.forEach((m,index)=>{
+
+    if(!m.word) return;
+
+    let div = document.createElement("div");
+    div.className = "card";
+
+    let bg = getSmartBackground(m.word, m.color);
+    div.style.background = bg;
+
+    // カードクリックでモーダル表示
+    div.onclick = ()=>{
+      openModal(m, index);
+    };
+
+    // ===== ドラッグ =====
+    div.setAttribute("draggable", true);
+
+    div.ondragstart = ()=>{
+      dragIndex = index;
+      div.style.opacity = "0.5";
+    };
+
+    div.ondragover = (e)=>{
+      e.preventDefault();
+    };
+
+    div.ondrop = (e)=>{
+      e.preventDefault();
+
+      let rect = div.getBoundingClientRect();
+      let middle = rect.top + rect.height / 2;
+
+      let newIndex = index;
+
+      if(e.clientY > middle){
+        newIndex = index + 1;
+      }
+
+      moveItem(newIndex);
+    };
+
+    div.ondragend = ()=>{
+      div.style.opacity = "1";
+    };
+
+    // ===== 中身 =====
+    let content = document.createElement("div");
+
+    content.innerHTML = `
+<span style="font-weight:bold;">
+${colorizeWord(m.word, m.color)}
+</span><br>
+
+<b>意味</b><br>
+${m.detail}<br><br>
+
+<b>メモ</b><br>
+${m.memo || ""}<br>
+`;
+
+    // ===== 手書き画像を画像として表示 =====
+    if(m.image){
+      let img = document.createElement("img");
+      img.src = m.image;
+      img.style.width = "200px";
+      img.style.maxWidth = "90%";
+      img.style.marginTop = "10px";
+      img.style.borderRadius = "10px";
+      img.style.border = "1px solid #ccc";
+      img.style.display = "block";
+      img.style.marginLeft = "auto";
+      img.style.marginRight = "auto";
+
+      content.appendChild(img);
+    }
+
+    // ===== ボタン =====
+
+    // 上へ
+    let upBtn = document.createElement("button");
+    upBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+    upBtn.onclick = (e)=>{
+      e.stopPropagation();
+      moveUp(index);
+    };
+
+    // 下へ
+    let downBtn = document.createElement("button");
+    downBtn.innerHTML = '<i class="fa-solid fa-arrow-down"></i>';
+    downBtn.onclick = (e)=>{
+      e.stopPropagation();
+      moveDown(index);
+    };
+
+    // 別ファイルへ移動
+    let moveBtn = document.createElement("button");
+    moveBtn.innerHTML = '<i class="fa-solid fa-right-left"></i>';
+    moveBtn.onclick = (e)=>{
+      e.stopPropagation();
+      moveWord(index);
+    };
+
+    // 編集
+    let editBtn = document.createElement("button");
+    editBtn.innerHTML = '<i class="fa-solid fa-pen"></i>';
+    editBtn.onclick = (e)=>{
+      e.stopPropagation();
+
+      word.value = m.word;
+      detail.value = m.detail;
+      memo.value = m.memo || "";
+
+      document.getElementById("color").value = m.color || "#000000";
+      colorTouched = !!m.color;
+
+      clearCanvas();
+
+      if(m.image){
+
+        const img = new Image();
+
+        img.onload = () => {
+          clearCanvas();
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+
+        img.src = m.image;
+      }
+
+      editIndex = index;
+    };
+
+    // 削除
+    let del = document.createElement("button");
+    del.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    del.classList.add("smallDelete");
+
+    del.onclick = (e)=>{
+      e.stopPropagation();
+      files[i].memos.splice(index,1);
+      localStorage.setItem("files", JSON.stringify(files));
+      renderWords();
+    };
+
+    // ===== カードに追加 =====
+    div.appendChild(content);
+    div.appendChild(upBtn);
+    div.appendChild(downBtn);
+    div.appendChild(moveBtn);
+    div.appendChild(editBtn);
+    div.appendChild(del);
+
+    list.appendChild(div);
+
+  });
+}
+ 
+
+/* ===== 新規ファイル ===== */
+
+function newMemo(){
+
+  let name = prompt("ファイル名を入力");
+
+  if(!name) return;
+
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+
+  let i = files.length;
+
+  files.push({
+    name: name,
+    memos: []
+  });
+
+  localStorage.setItem("files", JSON.stringify(files));
+  localStorage.setItem("current", i);
+
+  renderFiles();
+  showMemo();
+}
+ 
+
+
+  // 色も反映
+
+function moveWord(index){
+
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+  let current = localStorage.getItem("current");
+
+  // 移動先選択
+  let names = files.map((f,i)=>{
+    return `${i} : ${f.name}`;
+  }).join("\n");
+
+  let target = prompt("移動先の番号を入力してください\n" + names);
+
+  if(target === null) return;
+
+  target = parseInt(target);
+
+  if(isNaN(target) || !files[target]){
+    alert("無効な番号");
+    return;
+  }
+
+  // 同じファイルは禁止
+  if(target == current){
+    alert("同じファイルには移動できません");
+    return;
+  }
+
+  // 移動処理
+  let item = files[current].memos.splice(index,1)[0];
+  files[target].memos.push(item);
+
+  localStorage.setItem("files", JSON.stringify(files));
+
+  renderWords();
+}
+
+
+
+function moveItem(newIndex){
+
+  let i = localStorage.getItem("current");
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+
+  let moved = files[i].memos.splice(dragIndex, 1)[0];
+  files[i].memos.splice(newIndex, 0, moved);
+
+  localStorage.setItem("files", JSON.stringify(files));
+  renderWords();
+}
+
+function showLine(div, e){
+
+  let rect = div.getBoundingClientRect();
+  let middle = rect.top + rect.height / 2;
+
+  if(e.clientY < middle){
+    div.style.borderTop = "4px solid #007aff";
+    div.style.borderBottom = "";
+    div.dataset.position = "top";
+  }else{
+    div.style.borderBottom = "4px solid #007aff";
+    div.style.borderTop = "";
+    div.dataset.position = "bottom";
+  }
+}
+
+function hideLine(div){
+  div.style.borderTop = "";
+  div.style.borderBottom = "";
+}
+
+
+function moveUp(index){
+
+  let i = localStorage.getItem("current");
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+
+  if(index === 0) return;
+
+  let tmp = files[i].memos[index];
+  files[i].memos[index] = files[i].memos[index - 1];
+  files[i].memos[index - 1] = tmp;
+
+  localStorage.setItem("files", JSON.stringify(files));
+  renderWords();
+}
+
+function moveDown(index){
+
+  let i = localStorage.getItem("current");
+  let files = JSON.parse(localStorage.getItem("files") || "[]");
+
+  if(index === files[i].memos.length - 1) return;
+
+  let tmp = files[i].memos[index];
+  files[i].memos[index] = files[i].memos[index + 1];
+  files[i].memos[index + 1] = tmp;
+
+  localStorage.setItem("files", JSON.stringify(files));
+  renderWords();
+}
+
+
+function closeModal(){
+  document.getElementById("modal").style.display = "none";
+}
+
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+
+
+window.onload = function(){
+
+  renderFiles();
+
+  canvas = document.getElementById("canvas");
+  ctx = canvas.getContext("2d");
+
+  canvas.width = 250;
+  canvas.height = 100;
+
+  ctx.lineWidth = 3;
+  ctx.lineCap = "round";
+  ctx.strokeStyle = "#000";
+
+document.getElementById("penColor")
+  .addEventListener("input", e => {
+
+    if(currentTool === "pen"){
+      ctx.strokeStyle = e.target.value;
+    }
+
+  });
+
+
+
+penSlider.addEventListener("input", e => {
+
+  penWidth = Number(e.target.value);
+
+  penText.textContent = penWidth;
+
+  if(currentTool === "pen"){
+    ctx.lineWidth = penWidth;
+  }
+
+});
+
+const eraserSlider =
+  document.getElementById("eraserSize");
+
+const eraserText =
+  document.getElementById("eraserSizeValue");
+
+eraserSlider.addEventListener("input", e => {
+
+  eraserWidth = Number(e.target.value);
+
+  eraserText.textContent = eraserWidth;
+
+  if(currentTool === "eraser"){
+    ctx.lineWidth = eraserWidth;
+  }
+
+});
+
+document.getElementById("color")
+  .addEventListener("input", () => {
+
+    colorTouched = true;
+
+  });
+
+
+  // PC
+  canvas.addEventListener("mousedown", startDraw);
+  canvas.addEventListener("mousemove", draw);
+  window.addEventListener("mouseup", endDraw);
+
+  // スマホ
+  canvas.addEventListener("touchstart", startDraw);
+  canvas.addEventListener("touchmove", draw);
+  canvas.addEventListener("touchend", endDraw);
+
+
+penMode();
+
+}
+
+</script>
+
+<!-- 大きく表示するやつ -->
+<div id="modal" style="
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+">
+
+  <div id="modalContent" style="
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    max-width:400px;
+    width:90%;
+    text-align:center;
+  ">
+
+    <div id="modalWord" style="font-size:40px; font-weight:bold; margin-bottom:10px;"></div>
+    <div id="modalDetail" style="margin-top:10px;"></div>
+    <div id="modalMemo"></div>
+    <img id="modalImage" width="200" style="margin-top:10px;">
+
+    <br>
+
+    <button onclick="prevWord()">◀</button>
+    <button onclick="nextWord()">▶</button>
+
+    <br>
+
+    <button onclick="closeModal()">閉じる</button>
+
+
+  </div>
+  </div>
+
+<div id="tutorial" style="
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.7);
+  color:white;
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+">
+
+  <div style="
+    background:#2c2c2e;
+    padding:20px;
+    border-radius:15px;
+    max-width:400px;
+    width:90%;
+    text-align:left;
+  ">
+
+    <h3>チュートリアル</h3>
+
+    ・ファイルを作って単語帳を作ります<br>
+    ・単語を入力して保存できます<br><br>
+
+    ・⬆⬇ボタンで順番変更<br>
+    ・ドラッグでも並び替え可能<br><br>
+
+
+    ・設定画面で文字ごとの色を設定できます<br>
+    ・カタカナや漢字などの文字も自分で追加できます<br>
+    ・追加した文字も色を設定できます<br><br>
+
+
+    <button onclick="closeTutorial()">OK</button>
+
+  </div>
+
+</div>
+
+</body>
+</html>
